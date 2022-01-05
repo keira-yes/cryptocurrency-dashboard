@@ -1,11 +1,12 @@
 import { Welcome } from "./Welcome";
+import { AppLayout } from "./AppLayout";
 import './App.css';
 
 function App() {
   return (
-      <div>
+      <AppLayout>
         <Welcome />
-      </div>
+      </AppLayout>
   );
 }
 
