@@ -1,8 +1,11 @@
+import { Welcome } from "./Welcome";
 import './App.css';
 
 function App() {
   return (
-    <div>Hello world!</div>
+      <div>
+        <Welcome />
+      </div>
   );
 }
 
