@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { AppContext } from "./AppProvider";
 
 const Header = styled.header`
     display: flex;
@@ -22,9 +23,18 @@ const NavButtonElem = styled.div`
     `}
 `;
 
-function NavButton({ name, active }) {
+function NavButton({ name }) {
     return (
-        <NavButtonElem active={active}>{name}</NavButtonElem>
+        <AppContext.Consumer>
+            {({ page, setPage }) => (
+                <NavButtonElem
+                    active={page === name}
+                    onClick={() => setPage(name)}
+                >
+                    {name}
+                </NavButtonElem>
+            )}
+        </AppContext.Consumer>
     )
 }
 
@@ -32,7 +42,7 @@ export function AppHeader() {
     return (
         <Header>
             <Logo>Crypto</Logo>
-            <NavButton name="Dashboard" active />
+            <NavButton name="Dashboard" />
             <NavButton name="Settings" />
         </Header>
     )
