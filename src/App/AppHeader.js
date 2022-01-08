@@ -23,6 +23,10 @@ const NavButtonElem = styled.div`
     `}
 `;
 
+function toProperCase(str) {
+    return str.toLowerCase().charAt(0).toUpperCase() + str.substr(1);
+}
+
 function NavButton({ name }) {
     return (
         <AppContext.Consumer>
@@ -31,7 +35,7 @@ function NavButton({ name }) {
                     active={page === name}
                     onClick={() => setPage(name)}
                 >
-                    {name}
+                    {toProperCase(name)}
                 </NavButtonElem>
             )}
         </AppContext.Consumer>
@@ -42,8 +46,8 @@ export function AppHeader() {
     return (
         <Header>
             <Logo>Crypto</Logo>
-            <NavButton name="Dashboard" />
-            <NavButton name="Settings" />
+            <NavButton name="dashboard" />
+            <NavButton name="settings" />
         </Header>
     )
 }
