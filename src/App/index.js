@@ -1,7 +1,7 @@
-import { Welcome } from "./Welcome";
 import { AppLayout } from "./AppLayout";
 import { AppProvider } from "./AppProvider";
 import { AppHeader } from "./AppHeader";
+import { Settings } from "../Settings";
 import './App.css';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <AppLayout>
           <AppProvider>
               <AppHeader />
-              <Welcome />
+              <Settings />
           </AppProvider>
       </AppLayout>
   );

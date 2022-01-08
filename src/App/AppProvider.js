@@ -7,11 +7,31 @@ export class AppProvider extends React.Component {
         super(props);
         this.state = {
             page: 'dashboard',
-            setPage: this.setPage
+            ...this.initialSettings(),
+            setPage: this.setPage,
+            confirmFavorites: this.confirmFavorites
         }
     }
 
+    initialSettings = () => {
+        let storeData = JSON.parse(localStorage.getItem('cryptocurrency'));
+        if (!storeData) {
+            return {page: 'settings', firstVisit: true}
+        }
+        return {};
+    }
+
     setPage = page => this.setState({page});
+
+    confirmFavorites = () => {
+        this.setState({
+            firstVisit: false,
+            page: 'dashboard'
+        });
+        localStorage.setItem('cryptocurrency', JSON.stringify({
+            test: 'Hello'
+        }))
+    }
 
     render() {
        return (
