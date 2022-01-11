@@ -1,6 +1,7 @@
 import { AppLayout } from "./AppLayout";
 import { AppProvider } from "./AppProvider";
 import { AppHeader } from "./AppHeader";
+import { Content } from "../HOC/Content";
 import { Settings } from "../Settings";
 import './App.css';
 
@@ -9,7 +10,9 @@ function App() {
       <AppLayout>
           <AppProvider>
               <AppHeader />
-              <Settings />
+              <Content>
+                  <Settings />
+              </Content>
           </AppProvider>
       </AppLayout>
   );
