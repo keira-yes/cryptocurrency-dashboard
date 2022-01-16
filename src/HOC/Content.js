@@ -1,4 +1,4 @@
-import {AppContext, AppProvider} from "../App/AppProvider";
+import { AppContext } from "../App/AppProvider";
 
 export function Content({ children }) {
     return (
