@@ -23,6 +23,7 @@ export class AppProvider extends React.Component {
     fetchCoins = async () => {
         const coinList = (await cc.coinList()).Data;
         this.setState({coinList});
+        console.log(coinList)
     }
 
     initialSettings = () => {

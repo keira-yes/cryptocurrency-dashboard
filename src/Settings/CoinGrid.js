@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { AppContext } from "../App/AppProvider";
-import { SelectedTile } from "./Tile";
+import { Tile } from "./Tile";
 
 export const CoinGridStyled = styled.div`
     display: grid;
@@ -8,13 +8,17 @@ export const CoinGridStyled = styled.div`
     grid-gap: 15px;
 `;
 
+function displayCoins(coinList) {
+    return Object.values(coinList).slice(0, 100);
+}
+
 export function CoinGrid() {
     return (
         <AppContext.Consumer>
             {({coinList}) => (
                 <CoinGridStyled>
-                    {Object.keys(coinList).map(coin => (
-                        <SelectedTile key={coin}>{coin}</SelectedTile>
+                    {displayCoins(coinList).map(coin => (
+                        <Tile key={coin.Id} coin={coin}/>
                         )
                     )}
                 </CoinGridStyled>
