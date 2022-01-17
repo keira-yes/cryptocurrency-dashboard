@@ -7,6 +7,7 @@ export function Settings() {
     return (
         <Page name="settings">
             <Welcome />
+            <CoinGrid topSection />
             <ConfirmButton />
             <CoinGrid />
         </Page>

@@ -8,17 +8,17 @@ export const CoinGridStyled = styled.div`
     grid-gap: 15px;
 `;
 
-function displayCoins(coinList) {
-    return Object.values(coinList).slice(0, 100);
+function displayCoins(coinList, topSection) {
+    return Object.values(coinList).slice(0, topSection ? 10 : 100);
 }
 
-export function CoinGrid() {
+export function CoinGrid({ topSection }) {
     return (
         <AppContext.Consumer>
             {({coinList}) => (
                 <CoinGridStyled>
-                    {displayCoins(coinList).map(coin => (
-                        <Tile key={coin.Id} coin={coin}/>
+                    {displayCoins(coinList, topSection).map(coin => (
+                        <Tile key={coin.Id} coin={coin} topSection={topSection}/>
                         )
                     )}
                 </CoinGridStyled>
