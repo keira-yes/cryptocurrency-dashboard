@@ -1,4 +1,4 @@
-import { AppContext } from "../App/AppProvider";
+import { AppContext } from "../components/AppProvider";
 
 export function Welcome() {
     return (

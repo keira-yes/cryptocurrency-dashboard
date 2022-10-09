@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { subtleBoxShadow, lightBlueBackground, greenBoxShadow, redBoxShadow } from '../HOC/Styles';
-import {AppContext} from "../App/AppProvider";
+import {AppContext} from "../components/AppProvider";
 
 function clickCoinHandler(topSection, coin, addCoin, removeCoin) {
     return topSection ? () => removeCoin(coin) : () => addCoin(coin);

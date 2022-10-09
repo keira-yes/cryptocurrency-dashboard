@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AppContext } from "../App/AppProvider";
+import { AppContext } from "../components/AppProvider";
 import { color3, redBoxShadow } from '../HOC/Styles';
 
 const ConfirmButtonElem = styled.button`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AppContext } from "../App/AppProvider";
+import { AppContext } from "../components/AppProvider";
 import { Tile } from "./Tile";
 
 export const CoinGridStyled = styled.div`
