@@ -1,35 +1,33 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Route,
-} from "react-router-dom";
-import { AppLayout } from "./components/AppLayout";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { Sidebar } from "./components/Sidebar";
 import { AppProvider } from "./components/AppProvider";
 import { AppHeader } from "./components/AppHeader";
 import { Content } from "./HOC/Content";
 import { Settings } from "./Settings";
 import { Dashboard } from "./pages/Dashboard";
-import { Crypto } from "./pages/Crypto";
+import { Page404 } from "./pages/Page404";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Dashboard />,
-    },
-    {
-        path: "crypto",
-        element: <Crypto />,
-    },
-]);
+const Crypto = React.lazy(() => import("./pages/Crypto"));
 
 export const App = () => {
     return (
         <>
             <aside>
-                Aside
+                <Sidebar />
             </aside>
             <main>
-                <RouterProvider router={router} />
+                <Layout>
+                    <Routes>
+                        <Route index element={<Dashboard />} />
+                        <Route
+                            path="crypto"
+                            element={<React.Suspense fallback={<>Loading</>}><Crypto /></React.Suspense>}
+                        />
+                        <Route path="*" element={<Page404 />} />
+                    </Routes>
+                </Layout>
             </main>
         </>
     )
@@ -37,13 +35,13 @@ export const App = () => {
 
 // function App() {
 //   return (
-//       <AppLayout>
+//       <Layout>
 //           <AppProvider>
 //               <AppHeader />
 //               <Content>
 //                   <Settings />
 //               </Content>
 //           </AppProvider>
-//       </AppLayout>
+//       </Layout>
 //   );
 // }
