@@ -1,6 +1,6 @@
-import { AppContext } from "../components/AppProvider";
+import { AppContext } from "../../../HOC/AppProvider";
 
-export function Welcome() {
+export function CryptoWelcome() {
     return (
         <AppContext.Consumer>
             {({firstVisit}) => (

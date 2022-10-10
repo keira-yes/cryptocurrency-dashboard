@@ -1,15 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./components/Layout";
 import { Sidebar } from "./components/Sidebar";
-import { AppProvider } from "./components/AppProvider";
-import { AppHeader } from "./components/AppHeader";
-import { Content } from "./HOC/Content";
-import { Settings } from "./Settings";
 import { Dashboard } from "./pages/Dashboard";
+import { Crypto } from "./pages/Crypto";
 import { Page404 } from "./pages/Page404";
-
-const Crypto = React.lazy(() => import("./pages/Crypto"));
+import { Layout } from "./components/Layout";
 
 export const App = () => {
     return (
@@ -21,10 +16,7 @@ export const App = () => {
                 <Layout>
                     <Routes>
                         <Route index element={<Dashboard />} />
-                        <Route
-                            path="crypto"
-                            element={<React.Suspense fallback={<>Loading</>}><Crypto /></React.Suspense>}
-                        />
+                        <Route path="crypto" element={<Crypto />} />
                         <Route path="*" element={<Page404 />} />
                     </Routes>
                 </Layout>
@@ -32,16 +24,3 @@ export const App = () => {
         </>
     )
 }
-
-// function App() {
-//   return (
-//       <Layout>
-//           <AppProvider>
-//               <AppHeader />
-//               <Content>
-//                   <Settings />
-//               </Content>
-//           </AppProvider>
-//       </Layout>
-//   );
-// }

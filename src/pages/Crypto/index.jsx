@@ -1,8 +1,14 @@
-const Crypto = () => {
+import { CryptoWelcome } from "./CryptoWelcome";
+import { CryptoGrid } from "./CryptoGrid";
+import { CryptoConfirm } from "./CryptoConfirm";
+
+export function Crypto() {
     return (
-        <div>
-            <h1>Crypto</h1>
-        </div>
+        <>
+            <CryptoWelcome />
+            <CryptoGrid topSection />
+            <CryptoConfirm />
+        </>
     )
 }
 

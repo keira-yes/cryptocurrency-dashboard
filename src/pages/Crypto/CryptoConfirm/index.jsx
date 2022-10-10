@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { AppContext } from "../components/AppProvider";
-import { color3, redBoxShadow } from '../HOC/Styles';
+import { AppContext } from "../../../HOC/AppProvider";
+import { color3, redBoxShadow } from '../../../HOC/Styles';
 
 const ConfirmButtonElem = styled.button`
     margin: 20px;
@@ -11,7 +11,7 @@ const ConfirmButtonElem = styled.button`
     }
 `;
 
-export function ConfirmButton() {
+export function CryptoConfirm() {
     return (
         <AppContext.Consumer>
             {({confirmFavorites}) => (

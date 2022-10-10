@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { subtleBoxShadow, lightBlueBackground, greenBoxShadow, redBoxShadow } from '../HOC/Styles';
-import {AppContext} from "../components/AppProvider";
+import { subtleBoxShadow, lightBlueBackground, greenBoxShadow, redBoxShadow } from '../../../HOC/Styles';
+import {AppContext} from "../../../HOC/AppProvider";
 
 function clickCoinHandler(topSection, coin, addCoin, removeCoin) {
     return topSection ? () => removeCoin(coin) : () => addCoin(coin);
@@ -38,7 +38,7 @@ const DeleteIcon = styled.button `
     }
 `;
 
-export function Tile({ coin, topSection }) {
+export function CryptoTile({ coin, topSection }) {
     return (
         <AppContext.Consumer>
             {({ addCoin, removeCoin }) => {

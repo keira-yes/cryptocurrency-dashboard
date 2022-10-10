@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { AppContext } from "../components/AppProvider";
-import { Tile } from "./Tile";
+import { AppContext } from "../../../HOC/AppProvider";
+import { CryptoTile } from "../CryptoTile";
 
 export const CoinGridStyled = styled.div`
     display: grid;
@@ -18,13 +18,13 @@ function displayCoins(coinList, topSection, favorites) {
     }
 }
 
-export function CoinGrid({ topSection }) {
+export function CryptoGrid({ topSection }) {
     return (
         <AppContext.Consumer>
             {({coinList, favorites}) => (
                 <CoinGridStyled>
                     {displayCoins(coinList, topSection, favorites).map(coin => (
-                        <Tile
+                        <CryptoTile
                             key={coin.Id}
                             coin={coin}
                             topSection={topSection}

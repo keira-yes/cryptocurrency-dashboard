@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { AppContext } from "./AppProvider";
+import { AppContext } from "../HOC/AppProvider";
 
 const Header = styled.header`
     display: flex;
