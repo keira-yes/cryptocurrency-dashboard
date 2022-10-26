@@ -15,6 +15,7 @@ export class AppProvider extends React.Component {
             favorites: ['BTC', 'ETH', 'XMR', 'DOGE'],
             ...this.initialSettings(),
             addCoin: this.addCoin,
+            isFavorite: this.isFavorite,
             removeCoin: this.removeCoin,
             confirmFavorites: this.confirmFavorites
         }
@@ -32,10 +33,14 @@ export class AppProvider extends React.Component {
 
     addCoin = key => {
         const favorites = [...this.state.favorites];
-        if (favorites.length < MAX_FAVORITES && !favorites.includes(key)) {
+        if (favorites.length < MAX_FAVORITES) {
             favorites.push(key);
             this.setState({ favorites });
         }
+    }
+
+    isFavorite = key => {
+        return this.state.favorites.includes(key);
     }
 
     removeCoin = key => {

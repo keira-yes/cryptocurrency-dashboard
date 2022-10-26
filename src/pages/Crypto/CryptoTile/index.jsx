@@ -37,10 +37,12 @@ const DeleteIcon = styled.button `
 export function CryptoTile({ coin, topSection }) {
     return (
         <AppContext.Consumer>
-            {({ addCoin, removeCoin }) => {
+            {({ addCoin, removeCoin, isFavorite }) => {
                 let TileClass = TileStyled;
                 if (topSection) {
                     TileClass = DeletableTileStyled;
+                } else if (isFavorite(coin.Symbol)) {
+                    TileClass = DisabledTileStyled;
                 }
 
                 return (
