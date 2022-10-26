@@ -1,20 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-// function NavButton({ name }) {
-//     return (
-//         <AppContext.Consumer>
-//             {({ page, setPage }) => (
-//                 <NavButtonElem
-//                     active={page === name}
-//                     onClick={() => setPage(name)}
-//                 >
-//                     {toProperCase(name)}
-//                 </NavButtonElem>
-//             )}
-//         </AppContext.Consumer>
-//     )
-// }
-
 export function Header() {
     return (
         <>

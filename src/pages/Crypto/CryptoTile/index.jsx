@@ -31,11 +31,7 @@ export const DisabledTileStyled = styled(TileStyled) `
 `;
 
 const DeleteIcon = styled.button `
-    display: none;
-    ${DeletableTileStyled}:hover & {
-        display: block;
-        color: red;
-    }
+    color: red;
 `;
 
 export function CryptoTile({ coin, topSection }) {

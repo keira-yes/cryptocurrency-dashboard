@@ -22,16 +22,18 @@ export function CryptoGrid({ topSection }) {
     return (
         <AppContext.Consumer>
             {({coinList, favorites}) => (
-                <CoinGridStyled>
-                    {displayCoins(coinList, topSection, favorites).map(coin => (
-                        <CryptoTile
-                            key={coin.Id}
-                            coin={coin}
-                            topSection={topSection}
-                        />
-                        )
-                    )}
-                </CoinGridStyled>
+                coinList ?
+                    <CoinGridStyled>
+                        {displayCoins(coinList, topSection, favorites).map(coin => (
+                                <CryptoTile
+                                    key={coin.Id}
+                                    coin={coin}
+                                    topSection={topSection}
+                                />
+                            )
+                        )}
+                    </CoinGridStyled> :
+                    <div>Loading...</div>
             )}
         </AppContext.Consumer>
     )

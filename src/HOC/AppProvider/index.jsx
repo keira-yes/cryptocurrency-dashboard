@@ -1,4 +1,5 @@
 import React from 'react';
+import {type} from "@testing-library/user-event/dist/type";
 
 const cc = require('cryptocompare');
 cc.setApiKey('ff4d49d4aba752dfa26bd079e48552a673c19143ee2a63c491b4a8e2f413dda4');
@@ -14,6 +15,7 @@ export class AppProvider extends React.Component {
             favorites: ['BTC', 'ETH', 'XMR', 'DOGE'],
             ...this.initialSettings(),
             addCoin: this.addCoin,
+            removeCoin: this.removeCoin,
             confirmFavorites: this.confirmFavorites
         }
     }
@@ -30,10 +32,15 @@ export class AppProvider extends React.Component {
 
     addCoin = key => {
         const favorites = [...this.state.favorites];
-        if (favorites.length < MAX_FAVORITES) {
+        if (favorites.length < MAX_FAVORITES && !favorites.includes(key)) {
             favorites.push(key);
             this.setState({ favorites });
         }
+    }
+
+    removeCoin = key => {
+        const favorites = [...this.state.favorites].filter(item => item !== key);
+        this.setState({ favorites });
     }
 
     initialSettings = () => {
