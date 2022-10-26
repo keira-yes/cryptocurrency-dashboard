@@ -1,5 +1,4 @@
 import React from 'react';
-import {type} from "@testing-library/user-event/dist/type";
 
 const cc = require('cryptocompare');
 cc.setApiKey('ff4d49d4aba752dfa26bd079e48552a673c19143ee2a63c491b4a8e2f413dda4');
@@ -53,7 +52,9 @@ export class AppProvider extends React.Component {
         if (!storeData) {
             return {firstVisit: true}
         }
-        return {};
+        const { favorites } = storeData;
+        console.log(favorites)
+        return favorites;
     }
 
     confirmFavorites = () => {
@@ -61,7 +62,7 @@ export class AppProvider extends React.Component {
             firstVisit: false,
         });
         localStorage.setItem('cryptocurrency', JSON.stringify({
-            test: 'Hello'
+            favorites: this.state.favorites
         }));
     }
 
