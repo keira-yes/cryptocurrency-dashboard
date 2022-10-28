@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { subtleBoxShadow, lightBlueBackground, greenBoxShadow, redBoxShadow } from '../../../HOC/Styles';
-import {AppContext} from "../../../HOC/AppProvider";
+import { AppContext } from "../../../HOC/AppProvider";
 
 function clickCoinHandler(topSection, coin, addCoin, removeCoin) {
     return topSection ? () => removeCoin(coin) : () => addCoin(coin);
@@ -12,6 +12,7 @@ export const TileStyled = styled.div `
     ${subtleBoxShadow};
     ${lightBlueBackground};
     padding: 15px;
+    color: #fff;
     
     &:hover {
         cursor: pointer;
