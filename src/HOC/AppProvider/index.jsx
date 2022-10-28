@@ -16,18 +16,40 @@ export class AppProvider extends React.Component {
             addCoin: this.addCoin,
             isFavorite: this.isFavorite,
             removeCoin: this.removeCoin,
-            confirmFavorites: this.confirmFavorites
+            confirmFavorites: this.confirmFavorites,
+            fetchPrices: this.fetchPrices
         }
     }
 
     componentDidMount = () => {
         this.fetchCoins();
+        this.fetchPrices();
     }
 
     fetchCoins = async () => {
         const coinList = (await cc.coinList()).Data;
         this.setState({coinList});
-        console.log(coinList)
+    }
+
+    fetchPrices = async () => {
+        if (this.state.firstVisit) return;
+        const prices = await this.getPrices();
+        this.setState({ prices });
+        console.log(prices)
+    }
+
+    getPrices = async () => {
+        let prices;
+        const pricesArray = [];
+        try {
+            prices = await cc.priceFull(this.state.favorites, 'USD');
+        } catch (e) {
+            console.warn('Fetch price error', e);
+        }
+        Object.keys(prices).forEach(price => {
+            pricesArray.push({ [price]: prices[price] });
+        });
+        return pricesArray;
     }
 
     addCoin = key => {
@@ -53,13 +75,14 @@ export class AppProvider extends React.Component {
             return {firstVisit: true}
         }
         const { favorites } = storeData;
-        console.log(favorites)
-        return favorites;
+        return { favorites };
     }
 
     confirmFavorites = () => {
         this.setState({
             firstVisit: false,
+        }, () => {
+            this.fetchPrices();
         });
         localStorage.setItem('cryptocurrency', JSON.stringify({
             favorites: this.state.favorites
