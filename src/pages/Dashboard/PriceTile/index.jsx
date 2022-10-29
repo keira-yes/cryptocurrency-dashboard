@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import { TileStyled } from "../../Crypto/CryptoTile";
+import { greenBoxShadow } from "../../../HOC/Styles";
+import { AppContext } from "../../../HOC/AppProvider";
 
 export const PriceStyled = styled(TileStyled) `
     flex-wrap: wrap;
@@ -7,6 +9,10 @@ export const PriceStyled = styled(TileStyled) `
         width: 100%;
         font-size: 30px;
     }
+    ${props => props.current && css `
+        ${greenBoxShadow};
+        pointer-events: none;
+    `}
 `;
 
 export const ChangePct = styled.span `
@@ -17,7 +23,6 @@ export const ChangePct = styled.span `
 `
 
 export function PriceTile({ data }) {
-    console.log(data[Object.keys(data)]['USD'])
     const { FROMSYMBOL, IMAGEURL, CHANGEPCT24HOUR, PRICE } = data[Object.keys(data)]['USD'];
 
     const formattedPrice = number => {
@@ -25,11 +30,17 @@ export function PriceTile({ data }) {
     }
 
     return (
-        <PriceStyled>
-            {FROMSYMBOL ? <div>{FROMSYMBOL}</div> : 'Symbol'}
-            <img src={`https://www.cryptocompare.com/${IMAGEURL}`} width="50" height="50" alt="Alt"/>
-            {CHANGEPCT24HOUR ? <ChangePct red={CHANGEPCT24HOUR < 0}>{formattedPrice(CHANGEPCT24HOUR)}</ChangePct> : 0}
-            {PRICE ? <strong>$ {formattedPrice(PRICE)}</strong> : <strong>$ 0</strong>}
-        </PriceStyled>
+        <AppContext.Consumer>
+            {({ currentFavorite }) => {
+                return (
+                    <PriceStyled current={currentFavorite === FROMSYMBOL}>
+                        {FROMSYMBOL ? <div>{FROMSYMBOL}</div> : 'Symbol'}
+                        <img src={`https://www.cryptocompare.com/${IMAGEURL}`} width="50" height="50" alt="Alt"/>
+                        {CHANGEPCT24HOUR ? <ChangePct red={CHANGEPCT24HOUR < 0}>{formattedPrice(CHANGEPCT24HOUR)}</ChangePct> : 0}
+                        {PRICE ? <strong>$ {formattedPrice(PRICE)}</strong> : <strong>$ 0</strong>}
+                    </PriceStyled>
+                )
+            }}
+        </AppContext.Consumer>
     )
 }
