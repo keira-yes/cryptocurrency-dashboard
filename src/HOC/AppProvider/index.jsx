@@ -24,8 +24,6 @@ export class AppProvider extends React.Component {
     componentDidMount = () => {
         this.fetchCoins();
         this.fetchPrices();
-        const currentFavorite = this.state.favorites[0];
-        this.setState({currentFavorite});
     }
 
     fetchCoins = async () => {
@@ -37,23 +35,20 @@ export class AppProvider extends React.Component {
         if (this.state.firstVisit) return;
         const prices = await this.getPrices();
         this.setState({ prices });
-        // console.log(prices)
+        console.log(prices);
     }
 
     getPrices = async () => {
-        let prices;
-        const pricesArray = [];
+        let prices = [];
         try {
-            prices = await cc.priceFull(this.state.favorites, 'USD');
+            for (let i = 0; i < this.state.favorites.length; i += 1) {
+                const price = await cc.priceFull(String(this.state.favorites[i]), 'USD');
+                prices.push(price);
+            }
         } catch (e) {
             console.warn('Fetch price error', e);
         }
-        console.log('favorites', this.state.favorites)
-        console.log('prices', prices)
-        Object.keys(prices).forEach(price => {
-            pricesArray.push({ [price]: prices[price] });
-        });
-        return pricesArray;
+        return prices;
     }
 
     addCoin = key => {
@@ -78,21 +73,18 @@ export class AppProvider extends React.Component {
         if (!storeData) {
             return {firstVisit: true}
         }
-        const { favorites, currentFavorite } = storeData;
-        return { favorites, currentFavorite };
+        const { favorites } = storeData;
+        return { favorites };
     }
 
     confirmFavorites = () => {
-        const currentFavorite = this.state.favorites[0];
         this.setState({
             firstVisit: false,
-            currentFavorite
         }, () => {
             this.fetchPrices();
         });
         localStorage.setItem('cryptocurrency', JSON.stringify({
-            favorites: this.state.favorites,
-            currentFavorite: this.state.currentFavorite
+            favorites: this.state.favorites
         }));
     }
 
