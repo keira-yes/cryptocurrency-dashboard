@@ -31,9 +31,9 @@ export function PriceTile({ data }) {
 
     return (
         <AppContext.Consumer>
-            {({ currentFavorite }) => {
+            {({ currentFavorite, setCurrentFavorite }) => {
                 return (
-                    <PriceStyled current={currentFavorite === FROMSYMBOL}>
+                    <PriceStyled current={currentFavorite === FROMSYMBOL} onClick={() => setCurrentFavorite(FROMSYMBOL)}>
                         {FROMSYMBOL ? <div>{FROMSYMBOL}</div> : 'Symbol'}
                         <img src={`https://www.cryptocompare.com/${IMAGEURL}`} width="50" height="50" alt="Alt"/>
                         {CHANGEPCT24HOUR ? <ChangePct red={CHANGEPCT24HOUR < 0}>{formattedPrice(CHANGEPCT24HOUR)}</ChangePct> : 0}

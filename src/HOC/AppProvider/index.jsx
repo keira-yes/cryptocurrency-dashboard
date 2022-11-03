@@ -17,7 +17,8 @@ export class AppProvider extends React.Component {
             isFavorite: this.isFavorite,
             removeCoin: this.removeCoin,
             confirmFavorites: this.confirmFavorites,
-            fetchPrices: this.fetchPrices
+            fetchPrices: this.fetchPrices,
+            setCurrentFavorite: this.setCurrentFavorite
         }
     }
 
@@ -70,11 +71,10 @@ export class AppProvider extends React.Component {
     initialSettings = () => {
         let storeData = JSON.parse(localStorage.getItem('cryptocurrency'));
         if (!storeData) {
-            return {firstVisit: true}
+            return { firstVisit: true }
         }
-        if (storeData.favorites) {
-            return { favorites: storeData.favorites };
-        }
+
+        return { ...storeData };
     }
 
     confirmFavorites = () => {
@@ -88,6 +88,14 @@ export class AppProvider extends React.Component {
         localStorage.setItem('cryptocurrency', JSON.stringify({
             favorites: this.state.favorites,
             currentFavorite
+        }));
+    }
+
+    setCurrentFavorite = key => {
+        this.setState({ currentFavorite: key });
+        localStorage.setItem('cryptocurrency', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('cryptocurrency')),
+            currentFavorite: key
         }));
     }
 
