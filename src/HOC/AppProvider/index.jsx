@@ -35,7 +35,6 @@ export class AppProvider extends React.Component {
         if (this.state.firstVisit) return;
         const prices = await this.getPrices();
         this.setState({ prices });
-        console.log(prices);
     }
 
     getPrices = async () => {
@@ -73,18 +72,22 @@ export class AppProvider extends React.Component {
         if (!storeData) {
             return {firstVisit: true}
         }
-        const { favorites } = storeData;
-        return { favorites };
+        if (storeData.favorites) {
+            return { favorites: storeData.favorites };
+        }
     }
 
     confirmFavorites = () => {
+        const currentFavorite = this.state.favorites[0];
         this.setState({
             firstVisit: false,
+            currentFavorite
         }, () => {
             this.fetchPrices();
         });
         localStorage.setItem('cryptocurrency', JSON.stringify({
-            favorites: this.state.favorites
+            favorites: this.state.favorites,
+            currentFavorite
         }));
     }
 
