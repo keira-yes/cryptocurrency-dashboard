@@ -1,6 +1,7 @@
 import { AppContext } from "../../../HOC/AppProvider";
 import styled from 'styled-components';
 import { CoinDescription } from "../CoinDescription";
+import { CoinGraph } from "../CoinGraph";
 
 export const CoinInfoStyled = styled.div `
     display: grid;
@@ -14,7 +15,7 @@ export const CoinInfo = () => {
             {({  }) => (
                 <CoinInfoStyled>
                     <CoinDescription />
-                    <div>Graphs</div>
+                    <CoinGraph />
                 </CoinInfoStyled>
             )}
         </AppContext.Consumer>
