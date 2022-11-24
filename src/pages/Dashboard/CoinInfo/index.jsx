@@ -12,10 +12,10 @@ export const CoinInfoStyled = styled.div `
 export const CoinInfo = () => {
     return (
         <AppContext.Consumer>
-            {({  }) => (
+            {({ historicalData }) => (
                 <CoinInfoStyled>
                     <CoinDescription />
-                    <CoinGraph />
+                    {historicalData ? <CoinGraph historicalData={historicalData} /> : <div>Loading...</div>}
                 </CoinInfoStyled>
             )}
         </AppContext.Consumer>

@@ -36,7 +36,7 @@ export function PriceTile({ data }) {
                     <PriceStyled current={currentFavorite === FROMSYMBOL} onClick={() => setCurrentFavorite(FROMSYMBOL)}>
                         {FROMSYMBOL ? <div>{FROMSYMBOL}</div> : 'Symbol'}
                         <img src={`https://www.cryptocompare.com/${IMAGEURL}`} width="50" height="50" alt="Alt"/>
-                        {CHANGEPCT24HOUR ? <ChangePct red={CHANGEPCT24HOUR < 0}>{formattedPrice(CHANGEPCT24HOUR)}</ChangePct> : 0}
+                        {CHANGEPCT24HOUR ? <ChangePct red={CHANGEPCT24HOUR < 0}>{formattedPrice(CHANGEPCT24HOUR)}%</ChangePct> : 0}
                         {PRICE ? <strong>$ {formattedPrice(PRICE)}</strong> : <strong>$ 0</strong>}
                     </PriceStyled>
                 )

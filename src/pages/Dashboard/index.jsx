@@ -1,5 +1,6 @@
 import { Prices } from "./Prices";
 import { CoinInfo } from "./CoinInfo";
+import moment from "moment";
 
 export const Dashboard = () => {
     return (

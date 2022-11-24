@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from "moment";
 
 const cc = require('cryptocompare');
 cc.setApiKey('ff4d49d4aba752dfa26bd079e48552a673c19143ee2a63c491b4a8e2f413dda4');
@@ -6,6 +7,7 @@ cc.setApiKey('ff4d49d4aba752dfa26bd079e48552a673c19143ee2a63c491b4a8e2f413dda4')
 export const AppContext = React.createContext();
 
 const MAX_FAVORITES = 10;
+const HISTORICAL_PRICES = 10;
 
 export class AppProvider extends React.Component {
     constructor(props) {
@@ -19,13 +21,15 @@ export class AppProvider extends React.Component {
             removeCoin: this.removeCoin,
             confirmFavorites: this.confirmFavorites,
             fetchPrices: this.fetchPrices,
-            setCurrentFavorite: this.setCurrentFavorite
+            setCurrentFavorite: this.setCurrentFavorite,
+            fetchHistoricalPrices: this.fetchHistoricalPrices
         }
     }
 
     componentDidMount = () => {
         this.fetchCoins();
         this.fetchPrices();
+        this.fetchHistoricalPrices();
     }
 
     fetchCoins = async () => {
@@ -50,6 +54,32 @@ export class AppProvider extends React.Component {
             console.warn('Fetch price error', e);
         }
         return prices;
+    }
+
+    fetchHistoricalPrices = async() => {
+        if (this.state.firstVisit) return;
+        const historicalPrices = await this.getHistoricalPrices();
+        const historicalData = [{
+            name: this.state.currentFavorite,
+            data: historicalPrices.map((price, index) => [
+                moment().subtract({ months: HISTORICAL_PRICES - index }).valueOf(),
+                price.USD
+            ])
+        }];
+        this.setState({ historicalData });
+    }
+
+    getHistoricalPrices = async () => {
+        let historicalPrices = [];
+        try {
+            for (let i = HISTORICAL_PRICES; i > 0; i --) {
+                const historicalPrice = await cc.priceHistorical(this.state.currentFavorite, ['USD'], moment().subtract({ months: i }).toDate());
+                historicalPrices.push(historicalPrice);
+            }
+        } catch (e) {
+            console.warn('Fetch historical prices error', e);
+        }
+        return historicalPrices;
     }
 
     addCoin = key => {
@@ -82,9 +112,12 @@ export class AppProvider extends React.Component {
         const currentFavorite = this.state.favorites[0];
         this.setState({
             firstVisit: false,
-            currentFavorite
+            currentFavorite,
+            prices: null,
+            historicalData: null
         }, () => {
             this.fetchPrices();
+            this.fetchHistoricalPrices();
         });
         localStorage.setItem('cryptocurrency', JSON.stringify({
             favorites: this.state.favorites,
@@ -93,7 +126,10 @@ export class AppProvider extends React.Component {
     }
 
     setCurrentFavorite = key => {
-        this.setState({ currentFavorite: key });
+        this.setState({
+            currentFavorite: key,
+            historicalData: null
+        }, this.fetchHistoricalPrices);
         localStorage.setItem('cryptocurrency', JSON.stringify({
             ...JSON.parse(localStorage.getItem('cryptocurrency')),
             currentFavorite: key
