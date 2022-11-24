@@ -14,7 +14,7 @@ export class AppProvider extends React.Component {
         super(props);
         this.state = {
             coinList: [],
-            favorites: ['BTC', 'ETH', 'XMR', 'DOGE'],
+            favorites: [],
             ...this.initialSettings(),
             addCoin: this.addCoin,
             isFavorite: this.isFavorite,

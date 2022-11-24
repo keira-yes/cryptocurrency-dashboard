@@ -5,7 +5,8 @@ import { PriceTile } from "../PriceTile";
 export const Prices = () => {
     return (
         <AppContext.Consumer>
-            {({ prices }) => (
+            {({ firstVisit, prices }) => (
+                firstVisit ? <div>No data to display. Please, select Favorite Currencies</div> :
                 prices ?
                     <CoinGridStyled>
                         {prices.map((price) => <PriceTile data={price} key={Object.keys(price)} />)}
