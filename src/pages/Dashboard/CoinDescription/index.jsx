@@ -4,8 +4,8 @@ export const CoinDescription = () => {
     return (
         <AppContext.Consumer>
             {({ currentFavorite, coinList }) => {
+                if (!coinList) return <div>Loading...</div>
                 const coin = coinList[currentFavorite] ? coinList[currentFavorite] : null;
-                if (!coin) return <div>Loading...</div>
                 return (
                     <div>
                         <h2>{coin.CoinName}</h2>

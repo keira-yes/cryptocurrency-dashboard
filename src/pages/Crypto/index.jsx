@@ -7,9 +7,9 @@ export function Crypto() {
         <>
             <h1>Crypto</h1>
             <CryptoWelcome />
-            <CryptoGrid topSection />
+            <CryptoGrid topSection={true} />
             <CryptoConfirm />
-            <CryptoGrid />
+            <CryptoGrid topSection={false} />
         </>
     )
 }

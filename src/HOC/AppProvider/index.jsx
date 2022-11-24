@@ -13,7 +13,6 @@ export class AppProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            coinList: [],
             favorites: [],
             ...this.initialSettings(),
             addCoin: this.addCoin,
