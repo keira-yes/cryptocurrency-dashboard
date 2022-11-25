@@ -12,11 +12,13 @@ export const CoinInfoStyled = styled.div `
 export const CoinInfo = () => {
     return (
         <AppContext.Consumer>
-            {({ firstVisit, historicalData }) => {
+            {({ firstVisit, historicalData, graphPeriod, handleGraphPeriod }) => {
                 if (firstVisit) return;
                 return <CoinInfoStyled>
                     <CoinDescription />
-                    {historicalData ? <CoinGraph historicalData={historicalData} /> : <div>Loading...</div>}
+                    {historicalData ?
+                        <CoinGraph historicalData={historicalData} graphPeriod={graphPeriod} handleGraphPeriod={handleGraphPeriod} />
+                        : <div>Loading...</div>}
                 </CoinInfoStyled>
             }}
         </AppContext.Consumer>

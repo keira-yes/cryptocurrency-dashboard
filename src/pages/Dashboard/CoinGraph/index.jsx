@@ -294,11 +294,16 @@ const setOptions = (data) => {
     }
 }
 
-export const CoinGraph = ({ historicalData }) => {
+export const CoinGraph = ({ historicalData, graphPeriod, handleGraphPeriod }) => {
     const options = setOptions(historicalData);
 
     return (
         <div>
+            <select name="period" defaultValue={graphPeriod} onChange={e => handleGraphPeriod(e.target.value)}>
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+            </select>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}

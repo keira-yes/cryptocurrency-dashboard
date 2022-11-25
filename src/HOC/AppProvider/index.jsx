@@ -14,6 +14,7 @@ export class AppProvider extends React.Component {
         super(props);
         this.state = {
             favorites: [],
+            graphPeriod: 'months',
             ...this.initialSettings(),
             addCoin: this.addCoin,
             isFavorite: this.isFavorite,
@@ -21,7 +22,8 @@ export class AppProvider extends React.Component {
             confirmFavorites: this.confirmFavorites,
             fetchPrices: this.fetchPrices,
             setCurrentFavorite: this.setCurrentFavorite,
-            fetchHistoricalPrices: this.fetchHistoricalPrices
+            fetchHistoricalPrices: this.fetchHistoricalPrices,
+            handleGraphPeriod: this.handleGraphPeriod
         }
     }
 
@@ -61,7 +63,7 @@ export class AppProvider extends React.Component {
         const historicalData = [{
             name: this.state.currentFavorite,
             data: historicalPrices.map((price, index) => [
-                moment().subtract({ months: HISTORICAL_PRICES - index }).valueOf(),
+                moment().subtract({ [this.state.graphPeriod]: HISTORICAL_PRICES - index }).valueOf(),
                 price.USD
             ])
         }];
@@ -72,7 +74,10 @@ export class AppProvider extends React.Component {
         let historicalPrices = [];
         try {
             for (let i = HISTORICAL_PRICES; i > 0; i --) {
-                const historicalPrice = await cc.priceHistorical(this.state.currentFavorite, ['USD'], moment().subtract({ months: i }).toDate());
+                const historicalPrice = await cc.priceHistorical(
+                    this.state.currentFavorite,
+                    ['USD'],
+                    moment().subtract({ [this.state.graphPeriod]: i }).toDate());
                 historicalPrices.push(historicalPrice);
             }
         } catch (e) {
@@ -133,6 +138,13 @@ export class AppProvider extends React.Component {
             ...JSON.parse(localStorage.getItem('cryptocurrency')),
             currentFavorite: key
         }));
+    }
+
+    handleGraphPeriod = value => {
+        this.setState({
+            graphPeriod: value,
+            historicalData: null
+        }, this.fetchHistoricalPrices);
     }
 
     render() {
